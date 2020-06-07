@@ -3,9 +3,9 @@ import { TodoItem } from "./App";
 
 type TodoProps = {
   todoItem: TodoItem;
-  toggleCompleted: (id: number) => void;
+  toggleCompleted: (id: string) => void;
   updateTodoItem: (todoItem: TodoItem) => void;
-  deleteTodoItem: (id: number) => void;
+  deleteTodoItem: (id: string) => void;
 };
 
 const Todo = ({

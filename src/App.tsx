@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useState } from "react";
 import Todo from "./Todo";
+import { v4 as uuid } from "uuid";
 import useLocalStorage from "./useLocalStorage";
 
 export type TodoItem = {
-  id: number;
+  id: string;
   text: string;
   completed: boolean;
 };
@@ -22,13 +23,13 @@ function App() {
     if (todoText.trim().length > 0) {
       setTodos([
         ...todos,
-        { id: nextId, text: todoText.trim(), completed: false },
+        { id: uuid(), text: todoText.trim(), completed: false },
       ]);
       setTodoText("");
       setNextId(nextId + 1);
     }
   };
-  const toggleCompleted = (id: number) => {
+  const toggleCompleted = (id: string) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -41,7 +42,7 @@ function App() {
     nextTodos.splice(todoItemIndex, 1, todoItem);
     setTodos(nextTodos);
   };
-  const deleteTodoItem = (id: number) => {
+  const deleteTodoItem = (id: string) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
   const clearCompleted = () => {
