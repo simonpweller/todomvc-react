@@ -201,3 +201,26 @@ describe(`editing mode`, () => {
       .should("have.text", "Learn JavaScript properly");
   });
 });
+
+describe(`persistence`, () => {
+  it(`should persist todos across reloads`, () => {
+    cy.get(".new-todo").type("Learn React ").blur();
+    cy.get(".toggle").last().click();
+
+    cy.visit("http://localhost:3000");
+    cy.get(".todo-list li").should("have.length", 2);
+    cy.get("li").first().should("not.have.class", "completed");
+    cy.get("li").last().should("not.have.class", "completed");
+  });
+
+  it(`should not persist edit mode across reloads`, () => {
+    cy.get(".toggle").first().click().click(); // give Cypress a chance to re-populate local storage
+    cy.get(".todo-list label").first().dblclick();
+
+    cy.get(".todo-list li").first().should("have.class", "editing");
+
+    cy.visit("http://localhost:3000");
+
+    cy.get(".todo-list li").first().should("not.have.class", "editing");
+  });
+});

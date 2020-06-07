@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import Todo from "./Todo";
+import useLocalStorage from "./useLocalStorage";
 
 export type TodoItem = {
   id: number;
@@ -8,7 +9,7 @@ export type TodoItem = {
 };
 
 function App() {
-  const [todos, setTodos] = useState<Array<TodoItem>>([]);
+  const [todos, setTodos] = useLocalStorage<Array<TodoItem>>("todos", []);
   const [todoText, setTodoText] = useState("");
   const [nextId, setNextId] = useState(1);
 
