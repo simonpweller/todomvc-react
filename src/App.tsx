@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import Todo from "./Todo";
 import { v4 as uuid } from "uuid";
 import useLocalStorage from "./useLocalStorage";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 export type TodoItem = {
   id: string;
@@ -112,25 +112,19 @@ function App() {
           </span>
           <ul className="filters">
             <li>
-              <a className={`${filter ? "" : "selected"}`} href="#/">
+              <NavLink exact to={"/"} activeClassName="selected">
                 All
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                className={`${filter === "active" ? "selected" : ""}`}
-                href="#/active"
-              >
+              <NavLink to={"/active"} activeClassName="selected">
                 Active
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                className={`${filter === "completed" ? "selected" : ""}`}
-                href="#/completed"
-              >
+              <NavLink to={"/completed"} activeClassName="selected">
                 Completed
-              </a>
+              </NavLink>
             </li>
           </ul>
           <button
