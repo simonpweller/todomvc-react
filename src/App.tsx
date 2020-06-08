@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import Todo from "./Todo";
 import { v4 as uuid } from "uuid";
 import useLocalStorage from "./useLocalStorage";
+import { useParams } from "react-router-dom";
 
 export type TodoItem = {
   id: string;
@@ -13,11 +14,17 @@ function App() {
   const [todos, setTodos] = useLocalStorage<Array<TodoItem>>("todos", []);
   const [todoText, setTodoText] = useState("");
   const [nextId, setNextId] = useState(1);
+  const { filter } = useParams();
 
   const hasTodos = todos.length > 0;
   const anyCompleted = todos.some((todo) => todo.completed);
   const allCompleted = todos.every((todo) => todo.completed);
   const activeTodoCount = todos.filter((todo) => !todo.completed).length;
+  const visibleTodos = filter
+    ? todos.filter((todo) =>
+        filter === "completed" ? todo.completed : !todo.completed
+      )
+    : todos;
 
   const addTodo = () => {
     if (todoText.trim().length > 0) {
@@ -84,7 +91,7 @@ function App() {
           />
           <label htmlFor="toggle-all">Mark all as complete</label>
           <ul className="todo-list">
-            {todos.map((todoItem) => (
+            {visibleTodos.map((todoItem) => (
               <Todo
                 key={todoItem.id}
                 todoItem={todoItem}
@@ -105,15 +112,25 @@ function App() {
           </span>
           <ul className="filters">
             <li>
-              <a className="selected" href="#/">
+              <a className={`${filter ? "" : "selected"}`} href="#/">
                 All
               </a>
             </li>
             <li>
-              <a href="#/active">Active</a>
+              <a
+                className={`${filter === "active" ? "selected" : ""}`}
+                href="#/active"
+              >
+                Active
+              </a>
             </li>
             <li>
-              <a href="#/completed">Completed</a>
+              <a
+                className={`${filter === "completed" ? "selected" : ""}`}
+                href="#/completed"
+              >
+                Completed
+              </a>
             </li>
           </ul>
           <button
