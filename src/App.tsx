@@ -13,7 +13,6 @@ export type TodoItem = {
 function App() {
   const [todos, setTodos] = useLocalStorage<Array<TodoItem>>("todos", []);
   const [todoText, setTodoText] = useState("");
-  const [nextId, setNextId] = useState(1);
   const { filter } = useParams();
 
   const hasTodos = todos.length > 0;
@@ -33,7 +32,6 @@ function App() {
         { id: uuid(), text: todoText.trim(), completed: false },
       ]);
       setTodoText("");
-      setNextId(nextId + 1);
     }
   };
   const toggleCompleted = (id: string) => {
