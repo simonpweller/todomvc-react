@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import Todo from "./Todo";
+import Header from "./Header";
 import { v4 as uuid } from "uuid";
 import useLocalStorage from "./useLocalStorage";
 import { NavLink, useParams } from "react-router-dom";
@@ -12,7 +13,6 @@ export type TodoItem = {
 
 function App() {
   const [todos, setTodos] = useLocalStorage<Array<TodoItem>>("todos", []);
-  const [todoText, setTodoText] = useState("");
   const { filter } = useParams();
 
   const hasTodos = todos.length > 0;
@@ -25,14 +25,8 @@ function App() {
       )
     : todos;
 
-  const addTodo = () => {
-    if (todoText.trim().length > 0) {
-      setTodos([
-        ...todos,
-        { id: uuid(), text: todoText.trim(), completed: false },
-      ]);
-      setTodoText("");
-    }
+  const addTodo = (todoText: string) => {
+    setTodos([...todos, { id: uuid(), text: todoText, completed: false }]);
   };
   const toggleCompleted = (id: string) => {
     setTodos(
@@ -60,22 +54,7 @@ function App() {
   return (
     <>
       <section className="todoapp">
-        <header className="header">
-          <h1>todos</h1>
-          <input
-            className="new-todo"
-            value={todoText}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setTodoText(e.target.value)
-            }
-            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
-              e.key === "Enter" && addTodo()
-            }
-            onBlur={addTodo}
-            placeholder="What needs to be done?"
-            autoFocus
-          />
-        </header>
+        <Header addTodo={addTodo} />
         <section
           className="main"
           style={{ display: hasTodos ? "block" : "none" }}
