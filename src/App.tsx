@@ -1,6 +1,7 @@
 import React from "react";
 import Todo from "./Todo";
 import Header from "./Header";
+import TodoCount from "./TodoCount";
 import { v4 as uuid } from "uuid";
 import useLocalStorage from "./useLocalStorage";
 import { NavLink, useParams } from "react-router-dom";
@@ -83,10 +84,7 @@ function App() {
           className="footer"
           style={{ display: hasTodos ? "block" : "none" }}
         >
-          <span className="todo-count">
-            <strong>{activeTodoCount}</strong>{" "}
-            {activeTodoCount === 1 ? "item" : "items"} left
-          </span>
+          <TodoCount count={activeTodoCount} />
           <ul className="filters">
             <li>
               <NavLink exact to={"/"} activeClassName="selected">
