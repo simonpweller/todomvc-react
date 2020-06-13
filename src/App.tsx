@@ -48,9 +48,10 @@ function App() {
     setTodos(nextTodos);
   };
 
-  const clearCompleted = () => {
+  const deleteCompleted = () => {
     setTodos(todos.filter((todo) => !todo.completed));
   };
+
   const toggleAll = () => {
     setTodos(todos.map((todo) => ({ ...todo, completed: !allCompleted })));
   };
@@ -107,7 +108,7 @@ function App() {
           </ul>
           <button
             className="clear-completed"
-            onClick={clearCompleted}
+            onClick={deleteCompleted}
             style={{ display: anyCompleted ? "block" : "none" }}
           >
             Clear completed
