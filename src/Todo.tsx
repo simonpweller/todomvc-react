@@ -27,7 +27,6 @@ const Todo = ({
     }
   };
   const cancelEditing = () => {
-    console.log("cancelEditing");
     setIsEditMode(false);
     setEditedText(todoItem.text);
   };
