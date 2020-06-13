@@ -5,14 +5,14 @@ type TodoProps = {
   todoItem: TodoItem;
   toggleCompleted: (id: string) => void;
   updateTodoItem: (todoItem: TodoItem) => void;
-  deleteTodoItem: (id: string) => void;
+  deleteTodo: (id: string) => void;
 };
 
 const Todo = ({
   todoItem,
   toggleCompleted,
   updateTodoItem,
-  deleteTodoItem,
+  deleteTodo,
 }: TodoProps) => {
   const input = useRef<HTMLInputElement>(null);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -23,7 +23,7 @@ const Todo = ({
       updateTodoItem({ ...todoItem, text: editedText.trim() });
       setEditedText(editedText.trim());
     } else {
-      deleteTodoItem(todoItem.id);
+      deleteTodo(todoItem.id);
     }
   };
   const cancelEditing = () => {
@@ -55,7 +55,7 @@ const Todo = ({
         </label>
         <button
           className="destroy"
-          onClick={deleteTodoItem.bind(null, todoItem.id)}
+          onClick={deleteTodo.bind(null, todoItem.id)}
         />
       </div>
       <input

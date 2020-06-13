@@ -29,6 +29,11 @@ function App() {
   const addTodo = (todoText: string) => {
     setTodos([...todos, { id: uuid(), text: todoText, completed: false }]);
   };
+
+  const deleteTodo = (id: string) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
   const toggleCompleted = (id: string) => {
     setTodos(
       todos.map((todo) =>
@@ -42,9 +47,7 @@ function App() {
     nextTodos.splice(todoItemIndex, 1, todoItem);
     setTodos(nextTodos);
   };
-  const deleteTodoItem = (id: string) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+
   const clearCompleted = () => {
     setTodos(todos.filter((todo) => !todo.completed));
   };
@@ -75,7 +78,7 @@ function App() {
                 todoItem={todoItem}
                 toggleCompleted={toggleCompleted}
                 updateTodoItem={updateTodoItem}
-                deleteTodoItem={deleteTodoItem}
+                deleteTodo={deleteTodo}
               />
             ))}
           </ul>
