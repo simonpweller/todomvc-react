@@ -2,6 +2,7 @@ import React from "react";
 import Todo from "./Todo";
 import Header from "./Header";
 import TodoCount from "./TodoCount";
+import ClearCompletedButton from "./ClearCompletedButton";
 import { v4 as uuid } from "uuid";
 import useLocalStorage from "./useLocalStorage";
 import { NavLink, useParams } from "react-router-dom";
@@ -106,13 +107,7 @@ function App() {
               </NavLink>
             </li>
           </ul>
-          <button
-            className="clear-completed"
-            onClick={deleteCompleted}
-            style={{ display: anyCompleted ? "block" : "none" }}
-          >
-            Clear completed
-          </button>
+          {anyCompleted && <ClearCompletedButton onClick={deleteCompleted} />}
         </footer>
       </section>
       <footer className="info">
