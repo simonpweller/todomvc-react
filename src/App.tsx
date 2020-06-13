@@ -61,54 +61,54 @@ function App() {
     <>
       <section className="todoapp">
         <Header addTodo={addTodo} />
-        <section
-          className="main"
-          style={{ display: hasTodos ? "block" : "none" }}
-        >
-          <input
-            id="toggle-all"
-            className="toggle-all"
-            type="checkbox"
-            onChange={toggleAll}
-            checked={allCompleted}
-          />
-          <label htmlFor="toggle-all">Mark all as complete</label>
-          <ul className="todo-list">
-            {visibleTodos.map((todoItem) => (
-              <Todo
-                key={todoItem.id}
-                todoItem={todoItem}
-                toggleCompleted={toggleCompleted}
-                updateTodoItem={updateTodoItem}
-                deleteTodo={deleteTodo}
+        {hasTodos && (
+          <>
+            <section className="main">
+              <input
+                id="toggle-all"
+                className="toggle-all"
+                type="checkbox"
+                onChange={toggleAll}
+                checked={allCompleted}
               />
-            ))}
-          </ul>
-        </section>
-        <footer
-          className="footer"
-          style={{ display: hasTodos ? "block" : "none" }}
-        >
-          <TodoCount count={activeTodoCount} />
-          <ul className="filters">
-            <li>
-              <NavLink exact to={"/"} activeClassName="selected">
-                All
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={"/active"} activeClassName="selected">
-                Active
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={"/completed"} activeClassName="selected">
-                Completed
-              </NavLink>
-            </li>
-          </ul>
-          {anyCompleted && <ClearCompletedButton onClick={deleteCompleted} />}
-        </footer>
+              <label htmlFor="toggle-all">Mark all as complete</label>
+              <ul className="todo-list">
+                {visibleTodos.map((todoItem) => (
+                  <Todo
+                    key={todoItem.id}
+                    todoItem={todoItem}
+                    toggleCompleted={toggleCompleted}
+                    updateTodoItem={updateTodoItem}
+                    deleteTodo={deleteTodo}
+                  />
+                ))}
+              </ul>
+            </section>
+            <footer className="footer">
+              <TodoCount count={activeTodoCount} />
+              <ul className="filters">
+                <li>
+                  <NavLink exact to={"/"} activeClassName="selected">
+                    All
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/active"} activeClassName="selected">
+                    Active
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/completed"} activeClassName="selected">
+                    Completed
+                  </NavLink>
+                </li>
+              </ul>
+              {anyCompleted && (
+                <ClearCompletedButton onClick={deleteCompleted} />
+              )}
+            </footer>
+          </>
+        )}
       </section>
       <footer className="info">
         <p>Double-click to edit a todo</p>
