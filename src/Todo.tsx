@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { TodoItem } from "./App";
+import { TodoItem } from "./TodoList";
 
 type TodoProps = {
   todoItem: TodoItem;
